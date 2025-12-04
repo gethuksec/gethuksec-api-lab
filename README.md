@@ -19,6 +19,27 @@ npm install
 npm run dev
 ```
 
+## ⚠️ Jika terjadi ERROR
+```bash
+# Pull latest dari GitHub
+git pull origin main
+
+# Stop dan hapus SEMUA (container, image, volume)
+sudo docker-compose down -v --rmi all
+
+# Hapus folder data
+sudo rm -rf data
+mkdir -p data
+chmod 777 data
+
+# Rebuild dari awal (no cache)
+sudo docker-compose build --no-cache
+sudo docker-compose up -d
+
+# Cek logs
+sudo docker-compose logs -f
+```
+
 **Akses:**
 - 🌐 API: http://localhost:3000
 - 📖 Guide: https://api-lab.gethuksec.id/guide.html
