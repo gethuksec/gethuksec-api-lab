@@ -2,9 +2,11 @@ import express, { Application } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import { config } from './config/env';
-import { initDatabase } from './config/database';
+import { initDatabase, getOne } from './config/database';
 import { errorHandlerVulnerable, notFoundHandler } from './middleware/errorHandler';
 import { apiLimiter } from './middleware/rateLimiter';
+import { createTables } from './database/init';
+import { seedDatabase } from './database/seed';
 
 // Import routes
 import authRoutes from './routes/v1/auth';
@@ -139,7 +141,26 @@ const startServer = async () => {
     try {
         // Initialize database
         await initDatabase();
-        console.log('✅ Database initialized');
+        console.log('✅ Database connected');
+
+        // Check if tables exist, if not create and seed
+        try {
+            const tableCheck = await getOne("SELECT name FROM sqlite_master WHERE type='table' AND name='users'");
+            if (!tableCheck) {
+                console.log('📦 First run detected - creating tables...');
+                await createTables();
+                console.log('🌱 Seeding database with sample data...');
+                await seedDatabase();
+                console.log('✅ Database setup complete!');
+            } else {
+                console.log('✅ Database tables already exist');
+            }
+        } catch (err) {
+            console.log('📦 Creating tables and seeding database...');
+            await createTables();
+            await seedDatabase();
+            console.log('✅ Database setup complete!');
+        }
 
         // Start server
         app.listen(config.port, () => {
