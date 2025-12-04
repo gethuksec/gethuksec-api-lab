@@ -8,8 +8,8 @@ Vulnerable API lab untuk belajar **OWASP API Security Top 10 (2023)**. Dilengkap
 
 ```bash
 # Clone
-git clone https://github.com/gethuksec/owasp-api-lab.git
-cd owasp-api-lab
+git clone https://github.com/gethuksec/gethuksec-api-lab.git
+cd gethuksec-api-lab
 
 # Run dengan Docker (recommended)
 docker-compose up -d --build
@@ -21,7 +21,7 @@ npm run dev
 
 **Akses:**
 - 🌐 API: http://localhost:3000
-- 📖 Guide: Buka `guide.html` di browser
+- 📖 Guide: https://api-lab.gethuksec.id/guide.html
 - 📚 Docs: http://localhost:3000/api/docs
 
 ## 🎯 Vulnerabilities
