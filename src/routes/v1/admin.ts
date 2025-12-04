@@ -18,13 +18,22 @@ router.get('/users', authenticateTokenVulnerable, requireAdminVulnerable, async 
         // VULNERABLE: requireAdminVulnerable doesn't actually check admin role
         const users = await getAll<User>('SELECT * FROM users');
 
-        res.json({
+        // Check if user is NOT admin (is_admin could be 0, false, or undefined)
+        const isNotAdmin = !req.user?.is_admin || req.user?.is_admin === 0;
+
+        const response: any = {
             message: 'Admin: All users',
             count: users.length,
             users,
-            // Add CTF flag for unauthorized admin access
-            flag: !req.user?.is_admin ? 'GTX{4dm1n_4cc3ss_gr4nt3d}' : undefined
-        });
+        };
+
+        // Add CTF flag for unauthorized admin access (non-admin accessing admin endpoint)
+        if (isNotAdmin) {
+            response.flag = 'GTX{4dm1n_4cc3ss_gr4nt3d}';
+            response.vulnerability = 'API5:2023 - Broken Function Level Authorization';
+        }
+
+        res.json(response);
     } catch (error: any) {
         res.status(500).json({ error: 'Failed to fetch users', details: error.message });
     }
