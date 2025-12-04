@@ -71,5 +71,5 @@ npm run dev
 
 ---
 
-**Built with ❤️ by [Gethuk Security](https://gethuk.com)**
+**Built with ❤️ by [Gethuk Security](https://gethuksec.id)**
 
