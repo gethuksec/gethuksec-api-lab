@@ -18,8 +18,8 @@ router.get('/users', authenticateTokenVulnerable, requireAdminVulnerable, async 
         // VULNERABLE: requireAdminVulnerable doesn't actually check admin role
         const users = await getAll<User>('SELECT * FROM users');
 
-        // Check if user is NOT admin (is_admin could be 0, false, or undefined)
-        const isNotAdmin = !req.user?.is_admin || req.user?.is_admin === 0;
+        // Check if user is NOT admin (is_admin could be truthy/falsy)
+        const isNotAdmin = !req.user?.is_admin;
 
         const response: any = {
             message: 'Admin: All users',
