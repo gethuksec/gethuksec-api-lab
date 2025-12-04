@@ -37,8 +37,9 @@ RUN npm ci --omit=dev
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/src/database/schema.sql ./src/database/schema.sql
 
-# Create directories for data and uploads
-RUN mkdir -p /app/data /app/uploads && \
+# Create directories for data, uploads, and copy schema to dist
+RUN mkdir -p /app/data /app/uploads /app/dist/database && \
+    cp /app/src/database/schema.sql /app/dist/database/schema.sql && \
     chown -R nodejs:nodejs /app
 
 # Switch to non-root user
