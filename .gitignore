@@ -1,0 +1,60 @@
+# ===========================================
+# OWASP API Security Lab - .gitignore
+# ===========================================
+
+# Dependencies
+node_modules/
+
+# Environment variables (local config)
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+build/
+
+# Database (recreated on first run)
+*.db
+*.db-journal
+data/*.db
+data/*.db-journal
+
+# Uploads (user-generated content)
+uploads/*
+!uploads/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Testing
+coverage/
+.nyc_output/
+
+# TypeScript
+*.tsbuildinfo
+
+# Misc
+.cache/
+temp/
+tmp/
+
+# Cursor IDE
+.cursor/
+
+# Documentation (internal)
+.docs/
+.prd/

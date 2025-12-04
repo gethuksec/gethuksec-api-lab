@@ -1,0 +1,56 @@
+services:
+  # Backend API
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: owasp-api-lab-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DATABASE_PATH=./data/lab.db
+      - JWT_SECRET=owasp-api-security-lab-secret-key-2024
+      - WEAK_JWT_SECRET=weak-secret-for-demo
+      - JWT_EXPIRES_IN=24h
+      - MAX_FILE_SIZE=10485760
+      - UPLOAD_DIR=./uploads
+      - CORS_ORIGIN=http://localhost:3001
+      - ENABLE_VULNERABLE_ENDPOINTS=true
+    volumes:
+      - ./data:/app/data
+      - ./uploads:/app/uploads
+    restart: unless-stopped
+    networks:
+      - owasp-lab-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend (to be added later)
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   container_name: owasp-api-lab-frontend
+  #   ports:
+  #     - "3001:80"
+  #   depends_on:
+  #     - api
+  #   environment:
+  #     - REACT_APP_API_URL=http://localhost:3000
+  #   restart: unless-stopped
+  #   networks:
+  #     - owasp-lab-network
+
+networks:
+  owasp-lab-network:
+    driver: bridge
+
+volumes:
+  api-data:
+  api-uploads:
