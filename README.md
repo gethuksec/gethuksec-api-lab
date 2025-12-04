@@ -21,7 +21,7 @@ npm run dev
 
 **Akses:**
 - 🌐 API: http://localhost:3000
-- 📖 Guide: Buka `guide.html` di browser
+- 📖 Guide: [Buka `guide.html` di browser](https://api-lab.gethuksec.id/guide.html)
 - 📚 Docs: http://localhost:3000/api/docs
 
 ## 🎯 Vulnerabilities
