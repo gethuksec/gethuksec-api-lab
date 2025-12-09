@@ -24,7 +24,7 @@ OWASP API Security Lab deployment instructions for various environments.
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/YOUR_USERNAME/owasp-api-security-lab.git
+git clone https://github.com/gethuksec/gethuksec-api-lab.git
 cd owasp-api-security-lab
 
 # 2. Install dependencies
